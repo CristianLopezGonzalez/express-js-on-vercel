@@ -1,9 +1,10 @@
 import express from 'express'
-import MapsRoutes from "./Routes/MapsRoutes.js";
-import WeaponRoutes from "./Routes/WeaponRoutes.js"
-
 import path from 'path'
 import { fileURLToPath } from 'url'
+
+import MapsRoutes from "./Routes/MapsRoutes.js";
+import WeaponRoutes from "./Routes/WeaponRoutes.js"
+import RolesRouter from "./Routes/RolesRouter.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -16,6 +17,7 @@ app.use('/images', express.static(path.join(__dirname, '../public/images')))
 
 app.use('/api/valorant/maps', MapsRoutes)
 app.use('/api/valorant/weapons', WeaponRoutes)
+app.use('/api/valorant/roles', RolesRouter)
 
 app.get('/', (req, res) => {
   res.status(200).json({

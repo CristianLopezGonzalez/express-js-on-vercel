@@ -47,8 +47,9 @@ class MapsController {
             console.error("FULL ERROR:", e);
             res.status(500).json({
                 success: false,
-                message: "Internal server error " + error.message,
-                full: String(e)
+                message: e.message,
+                cause: e.cause?.message,
+                code: e.cause?.code,
             })
         }
     }

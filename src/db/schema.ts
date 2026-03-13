@@ -75,6 +75,7 @@ export const agents = pgTable("agents", {
     description: text("description").notNull(),
     agentNumber: integer("agent_number").notNull(),
     race:        text("race").notNull(),
+    icon:        text("icon").notNull(),
     roleId:      integer("role_id")
         .notNull()
         .references(() => roles.roleId),

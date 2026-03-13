@@ -6,6 +6,7 @@
     integer,
     real,
 } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 
@@ -98,7 +99,6 @@ export const maps = pgTable("maps", {
 });
 
 // ─── Types ───────────────────────────────────────────────────────────────────
-
 export type Weapon   = typeof weapons.$inferSelect;
 export type NewWeapon = typeof weapons.$inferInsert;
 
@@ -113,3 +113,18 @@ export type NewAbility = typeof abilities.$inferInsert;
 
 export type Map    = typeof maps.$inferSelect;
 export type NewMap = typeof maps.$inferInsert;
+
+// ─── Relations ───────────────────────────────────────────────────────────────
+
+export const rolesRelations = relations(roles, ({ many }) => ({
+    agents: many(agents),
+}));
+
+export const agentsRelations = relations(agents, ({ one, many }) => ({
+    role: one(roles, { fields: [agents.roleId], references: [roles.roleId] }),
+    abilities: many(abilities),
+}));
+
+export const abilitiesRelations = relations(abilities, ({ one }) => ({
+    agent: one(agents, { fields: [abilities.agentId], references: [agents.agentId] }),
+}));

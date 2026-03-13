@@ -6,7 +6,12 @@ class AgentsController {
     static async getAllAgents(req: Request, res: Response) {
         try {
 
-            const allAgents = await db.select().from(agents)
+            const allAgents = await db.query.agents.findMany({
+                with: {
+                    abilities: true,
+                    role: true,
+                }
+            });
 
             if (allAgents.length === 0) {
                 return res.status(404).json({
@@ -42,6 +47,13 @@ class AgentsController {
                     })
                 }
             }
+
+            const newAgents = await db.insert(agents).values(body).returning();
+
+            return res.status(201).json({
+                success: true,
+                data: newAgents
+            })
 
         }catch (e){
             const error = e as Error;

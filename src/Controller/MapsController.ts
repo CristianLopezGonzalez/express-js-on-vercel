@@ -34,7 +34,18 @@ class MapsController {
 
     static async createMaps(req: Request, res: Response) {
         try {
+
+            const {mapName,spikeSites,icon,miniMap} = req.body
+
+            if (!mapName || !spikeSites || !icon || !miniMap) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Missing fields for map"
+                })
+            }
+
             const body = Array.isArray(req.body) ? req.body : [req.body];
+
             const addMaps = await db.insert(maps).values(body).returning();
 
             res.status(200).json({

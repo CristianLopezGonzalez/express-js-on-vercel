@@ -55,11 +55,18 @@ class AgentsController {
                 data: newAgents
             })
 
-        }catch (e){
-            const error = e as Error;
-            res.status(500).send({
+        } catch (e: any) {
+            if (e.cause?.code === "23505") {
+                return res.status(409).json({
+                    success: false,
+                    message: "Agent already exists",
+                })
+            }
+            res.status(500).json({
                 success: false,
-                message: `Internal Server Error ${error.message}`,
+                message: e.message,
+                cause: e.cause?.message,  // ← añade esto
+                code: e.cause?.code,      // ← añade esto
             })
         }
     }

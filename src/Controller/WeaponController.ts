@@ -1,29 +1,30 @@
 ﻿import {Response,Request} from "express";
 import { db } from "../db/index.js";
-import { maps } from "../db/schema.js";
+import {weapons} from "../db/schema.js";
 
-class MapsController {
+class WeaponController {
 
-    static async getAllMaps(req: Request, res: Response) {
+    static async getAllWeapons(req: Request, res: Response) {
 
         try {
 
-            const allMaps = await db.select().from(maps)
+            const allWeapons = await db.select().from(weapons);
 
-            if (allMaps.length === 0) {
-                return res.status(400).json({
+            if (allWeapons.length === 0) {
+                res.status(400).json({
                     success: false,
-                    error: "No maps found."
+                    message: "No weapons found."
                 })
             }
 
             res.status(200).json({
                 success: true,
-                data: allMaps,
+                data: allWeapons
             })
 
-        }catch (e){
+        }catch(e) {
             const error = e as Error;
+
             res.status(500).json({
                 success: false,
                 message: "Internal server error " + error.message,
@@ -32,38 +33,36 @@ class MapsController {
 
     }
 
-    static async createMaps(req: Request, res: Response) {
+    static async createWeapons(req: Request, res: Response) {
+
         try {
 
             const body = Array.isArray(req.body) ? req.body : [req.body];
 
-            for (const map of body) {
-
-                if (!map.mapName || !map.spikeSites || !map.icon || !map.miniMap) {
+            for (const weapon of body) {
+                if (!weapon.icon || !weapon.weaponName || !weapon.description) {
                     return res.status(400).json({
                         success: false,
-                        error: "Missing fields for map"
+                        error: "Missing fields for weapon"
                     })
                 }
-
             }
 
-            const addMaps = await db.insert(maps).values(body).returning();
-
+            const addWeapon = await db.insert(weapons).values(body).returning();
             res.status(200).json({
                 success: true,
-                data: addMaps,
+                data:addWeapon
             })
 
-        } catch (e) {
+        }catch(e) {
             const error = e as Error;
             res.status(500).json({
                 success: false,
-                message: 'Internal server error ' + error.message
+                message: "Internal server error " + error.message,
             })
         }
-    }
 
+    }
 }
 
-export default MapsController;
+export default WeaponController;

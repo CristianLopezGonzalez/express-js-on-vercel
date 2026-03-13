@@ -1,5 +1,4 @@
-﻿// src/db/schema.ts
-import {
+﻿import {
     pgTable,
     pgEnum,
     serial,
@@ -50,7 +49,7 @@ export const abilityTypeEnum = pgEnum("ability_type", [
 export const weapons = pgTable("weapons", {
     weaponId:    serial("weapon_id").primaryKey(),
     icon:        text("icon").notNull(),
-    weaponName:  text("weapon_name").notNull(),
+    weaponName:  text("weapon_name").notNull().unique(),
     description: text("description").notNull(),
     type:        text("type").notNull(),
     fireMode:    text("fire_mode").notNull(),
@@ -64,14 +63,14 @@ export const weapons = pgTable("weapons", {
 
 export const roles = pgTable("roles", {
     roleId:      serial("role_id").primaryKey(),
-    roleName:    roleNameEnum("role_name").notNull(),
+    roleName:    roleNameEnum("role_name").notNull().unique(),
     description: text("description").notNull(),
     icon:        text("icon").notNull(),
 });
 
 export const agents = pgTable("agents", {
     agentId:     serial("agent_id").primaryKey(),
-    agentName:   agentNameEnum("agent_name").notNull(),
+    agentName:   agentNameEnum("agent_name").notNull().unique(),
     description: text("description").notNull(),
     agentNumber: integer("agent_number").notNull(),
     race:        text("race").notNull(),
@@ -92,7 +91,7 @@ export const abilities = pgTable("abilities", {
 
 export const maps = pgTable("maps", {
     mapId:      serial("map_id").primaryKey(),
-    mapName:    text("map_name").notNull(),
+    mapName:    text("map_name").notNull().unique(),
     spikeSites: text("spike_sites").notNull(),
     icon:       text("icon").notNull(),
     miniMap:    text("mini_map").notNull(),

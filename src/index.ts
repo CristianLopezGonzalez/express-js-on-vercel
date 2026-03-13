@@ -1,3 +1,4 @@
+import "./env.js";
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -11,13 +12,13 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/api/valorant/maps',MapsRoutes)
+app.use('/api/valorant/maps', MapsRoutes)
 
 app.get('/', (req, res) => {
   res.status(200).json({
     status: 'success',
     message: 'Welcome to my API'
   })
-
 })
+
 export default app

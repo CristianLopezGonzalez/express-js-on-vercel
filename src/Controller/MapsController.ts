@@ -44,6 +44,7 @@ class MapsController {
 
         } catch (e) {
             const error = e as Error;
+            console.error("FULL ERROR:", e);
             res.status(500).json({
                 success: false,
                 message: "Internal server error " + error.message,

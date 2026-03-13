@@ -41,11 +41,13 @@ class MapsController {
                 success: true,
                 data: addMaps,
             })
+
         } catch (e) {
             const error = e as Error;
             res.status(500).json({
                 success: false,
                 message: "Internal server error " + error.message,
+                full: String(e)
             })
         }
     }

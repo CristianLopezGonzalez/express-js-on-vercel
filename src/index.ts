@@ -6,6 +6,7 @@ import MapsRoutes from "./Routes/MapsRoutes.js";
 import WeaponRoutes from "./Routes/WeaponRoutes.js"
 import RolesRouter from "./Routes/RolesRouter.js";
 import AgentsRouter from "./Routes/AgentsRouter.js"
+import AbilitiesRoutes from "./Routes/AbilitiesRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -20,6 +21,7 @@ app.use('/api/valorant/maps', MapsRoutes)
 app.use('/api/valorant/weapons', WeaponRoutes)
 app.use('/api/valorant/roles', RolesRouter)
 app.use('/api/valorant/agents', AgentsRouter)
+app.use('/api/valorant/abilities', AbilitiesRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).json({

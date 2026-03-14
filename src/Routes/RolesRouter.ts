@@ -4,7 +4,7 @@ import {requireApiKey} from "../Middleware/Auth.js";
 
 const router = express.Router();
 
-router.get("/",RolesController.getRoles)
-router.post("/",RolesController.createRoles,requireApiKey)
+router.get("/", RolesController.getRoles)
+router.post("/", requireApiKey, RolesController.createRoles)
 
 export default router;

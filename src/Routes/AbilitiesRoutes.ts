@@ -5,6 +5,6 @@ import AbilitiesController from "../Controller/AbilitiesController.js";
 const router = express.Router();
 
 router.get("/", AbilitiesController.getAllAbilities)
-router.post("/",AbilitiesController.createAbility,requireApiKey)
+router.post("/", requireApiKey, AbilitiesController.createAbility)
 
 export default router;

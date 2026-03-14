@@ -1,5 +1,5 @@
-﻿import {Response,Request} from "express";
-import { db } from "../db/index.js";
+﻿import {Response, Request} from "express";
+import {db} from "../db/index.js";
 import {weapons} from "../db/schema.js";
 
 class WeaponController {
@@ -22,7 +22,7 @@ class WeaponController {
                 data: allWeapons
             })
 
-        }catch(e) {
+        } catch (e) {
             const error = e as Error;
 
             res.status(500).json({
@@ -51,10 +51,10 @@ class WeaponController {
             const addWeapon = await db.insert(weapons).values(body).returning();
             res.status(200).json({
                 success: true,
-                data:addWeapon
+                data: addWeapon
             })
 
-        }catch(e) {
+        } catch (e) {
             const error = e as Error;
             res.status(500).json({
                 success: false,

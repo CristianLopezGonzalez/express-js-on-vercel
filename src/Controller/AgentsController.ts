@@ -39,8 +39,8 @@ class AgentsController {
 
             const body = Array.isArray(req.body) ? req.body : [req.body];
 
-            for (const agent of body){
-                if (!agent.agentName || !agent.description  || !agent.agentNumber || !agent.race){
+            for (const agent of body) {
+                if (!agent.agentName || !agent.description || !agent.agentNumber || !agent.race) {
                     return res.status(400).send({
                         success: false,
                         message: "Missing fields for agents",

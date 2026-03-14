@@ -1,6 +1,6 @@
-﻿import {Response,Request} from "express";
-import { db } from "../db/index.js";
-import { maps } from "../db/schema.js";
+﻿import {Response, Request} from "express";
+import {db} from "../db/index.js";
+import {maps} from "../db/schema.js";
 
 class MapsController {
 
@@ -22,7 +22,7 @@ class MapsController {
                 data: allMaps,
             })
 
-        }catch (e){
+        } catch (e) {
             const error = e as Error;
             res.status(500).json({
                 success: false,

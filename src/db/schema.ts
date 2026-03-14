@@ -46,6 +46,7 @@ export const agentNameEnum = pgEnum("agent_name", [
     "Veto",
     "Vyse",
     "Waylay",
+    "Astra"
 ]);
 
 export const abilityTypeEnum = pgEnum("ability_type", [

@@ -64,9 +64,7 @@ class AgentsController {
             }
             res.status(500).json({
                 success: false,
-                message: e.message,
-                cause: e.cause?.message,  // ← añade esto
-                code: e.cause?.code,      // ← añade esto
+                message: `Internal Server Error ${e.cause?.message}`,
             })
         }
     }

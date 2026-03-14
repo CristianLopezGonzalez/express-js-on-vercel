@@ -1,6 +1,7 @@
 ﻿import {Response, Request} from "express";
 import {db} from "../db/index.js";
 import {roles} from "../db/schema.js";
+import { eq } from 'drizzle-orm'
 
 class RolesController {
 
@@ -61,6 +62,25 @@ class RolesController {
             })
         }
     }
+static async getRoleById(req: Request, res: Response) {
+    try {
+        const { id } = req.params
+
+        const role = await db.select().from(roles).where(eq(roles.roleId, Number(id)))
+
+        if (!role.length) {
+            return res.status(404).json({ success: false, message: 'Role not found' })
+        }
+
+        res.json(role[0])
+    } catch (e) {
+        const error = e as Error
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error ' + error.message
+        })
+    }
+}
 
 }
 

@@ -1,6 +1,6 @@
 ﻿import {Request, Response} from 'express';
-import {db} from "../db/index.js";
-import {agents} from "../db/schema.js";
+import { valorantDb as db } from "../../db/index.js"
+import {agents} from "../../db/schemas/Valorant.js"
 
 class AgentsController {
     static async getAllAgents(req: Request, res: Response) {

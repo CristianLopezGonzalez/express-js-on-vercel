@@ -1,5 +1,5 @@
 ﻿import express from "express";
-import WeaponController from "../Controller/WeaponController.js";
+import WeaponController from "../Controller/valorant/WeaponController.js";
 import {requireApiKey} from "../Middleware/Auth.js";
 
 const router = express.Router();

@@ -1,6 +1,6 @@
 ﻿import {Request, Response} from 'express';
-import {db} from "../db/index.js";
-import {abilities} from "../db/schema.js";
+import { valorantDb as db } from "../../db/index.js"
+import {abilities} from "../../db/schemas/Valorant.js";
 
 class AbilitiesController {
 

@@ -1,6 +1,6 @@
 ﻿import {Response, Request} from "express";
-import {db} from "../db/index.js";
-import {maps} from "../db/schema.js";
+import { valorantDb as db } from "../../db/index.js"
+import {maps} from "../../db/schemas/Valorant.js"
 
 class MapsController {
 

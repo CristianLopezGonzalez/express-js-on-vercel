@@ -1,6 +1,6 @@
 ﻿import {Response, Request} from "express";
-import {db} from "../db/index.js";
-import {roles} from "../db/schema.js";
+import { valorantDb as db } from "../../db/index.js"
+import {roles} from "../../db/schemas/Valorant.js"
 import { eq } from 'drizzle-orm'
 
 class RolesController {

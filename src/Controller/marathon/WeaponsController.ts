@@ -23,8 +23,7 @@ class WeaponController {
             const body = Array.isArray(req.body) ? req.body : [req.body]
 
             for (const weapon of body) {
-                if (!weapon.weaponName || !weapon.description || !weapon.type || !weapon.fireRate ||
-                    !weapon.magazine || !weapon.headDamage || !weapon.bodyDamage || !weapon.legDamage || !weapon.icon) {
+                if (!weapon.weaponName || !weapon.description || !weapon.icon) {
                     return res.status(400).json({ success: false, message: "Missing fields for weapon" })
                 }
             }

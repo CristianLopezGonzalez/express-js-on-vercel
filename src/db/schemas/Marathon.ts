@@ -14,29 +14,16 @@ export const runnerNameEnum = pgEnum("runner_name", [
     "Destroyer", "Vandal", "Recon", "Assassin", "Triage", "Thief", "Rook",
 ])
 
-export const abilityTypeEnum = pgEnum("ability_type", [
+export const marathonAbilityTypeEnum = pgEnum("marathon_ability_type", [
     "Prime", "Tactical", "Passive",
 ])
 
-export const weaponTypeEnum = pgEnum("weapon_type", [
+export const marathonWeaponTypeEnum = pgEnum("marathon_weapon_type", [
     "Assault Rifle", "Hand Cannon", "SMG", "Shotgun", "Sniper", "Arc Blaster", "Melee",
 ])
 
 export const lootRarityEnum = pgEnum("loot_rarity", [
     "Standard", "Enhanced", "Deluxe", "Superior", "Prestige", "Priority", "Contraband",
-])
-
-export const lootCategoryEnum = pgEnum("loot_category", [
-    "Salvage", "Eccentric Salvage", "Priority", "Currency",
-])
-
-export const salvageTypeEnum = pgEnum("salvage_type", [
-    "Rod", "Wire", "Lens", "Node", "Circuit", "Resin",
-    "Filament", "Compound", "Biostrip", "Plant", "Chempack", "Drive", "None",
-])
-
-export const consumableRarityEnum = pgEnum("consumable_rarity", [
-    "Standard", "Enhanced", "Deluxe", "Superior", "Contraband",
 ])
 
 export const consumableCategoryEnum = pgEnum("consumable_category", [
@@ -49,30 +36,38 @@ export const consumableSubcategoryEnum = pgEnum("consumable_subcategory", [
 
 // ─── Tables ──────────────────────────────────────────────────────────────────
 
-export const runners = pgTable("runners", {
+export const runners = pgTable("marathon_runners", {
     runnerId: serial("runner_id").primaryKey(),
     runnerName: runnerNameEnum("runner_name").notNull().unique(),
     description: text("description").notNull(),
-    playstyle: text("playstyle").notNull(),
+    Model: text("model").notNull(),
     icon: text("icon").notNull(),
 })
 
-export const abilities = pgTable("abilities", {
+export const factions = pgTable("marathon_factions", {
+    factionId: serial("faction_id").primaryKey(),
+    factionName: text("faction_name").notNull().unique(),
+    description: text("description").notNull(),
+    role: text("role").notNull(),
+    icon: text("icon").notNull(),
+})
+
+export const abilities = pgTable("marathon_abilities", {
     abilityId: serial("ability_id").primaryKey(),
     abilityName: text("ability_name").notNull(),
     description: text("description").notNull(),
-    type: abilityTypeEnum("type").notNull(),
+    type: marathonAbilityTypeEnum("type").notNull(),
     icon: text("icon").notNull(),
     runnerId: integer("runner_id")
         .notNull()
         .references(() => runners.runnerId),
 })
 
-export const weapons = pgTable("weapons", {
+export const weapons = pgTable("marathon_weapons", {
     weaponId: serial("weapon_id").primaryKey(),
     weaponName: text("weapon_name").notNull().unique(),
     description: text("description").notNull(),
-    type: weaponTypeEnum("type").notNull(),
+    type: marathonWeaponTypeEnum("type").notNull(),
     fireRate: real("fire_rate").notNull(),
     magazine: integer("magazine").notNull(),
     headDamage: integer("head_damage").notNull(),
@@ -81,44 +76,37 @@ export const weapons = pgTable("weapons", {
     icon: text("icon").notNull(),
 })
 
-export const maps = pgTable("maps", {
+export const maps = pgTable("marathon_maps", {
     mapId: serial("map_id").primaryKey(),
     mapName: text("map_name").notNull().unique(),
     description: text("description").notNull(),
-    maxPlayers: integer("max_players").notNull(),
-    icon: text("icon").notNull(),
+    icon1: text("icon1").notNull(),
+    icon2: text("icon2").notNull(),
 })
 
-export const loot = pgTable("loot", {
+export const loot = pgTable("marathon_loot", {
     lootId: serial("loot_id").primaryKey(),
     name: text("name").notNull().unique(),
     description: text("description").notNull(),
     icon: text("icon").notNull(),
     rarity: lootRarityEnum("rarity").notNull(),
-    category: lootCategoryEnum("category").notNull(),
-    salvageType: salvageTypeEnum("salvage_type").notNull().default("None"),
-    price: integer("price").notNull().default(0),
-    sources: text("sources"),
-    usage: text("usage"),
 })
 
-export const consumables = pgTable("consumables", {
+export const consumables = pgTable("marathon_consumables", {
     consumableId: serial("consumable_id").primaryKey(),
     name: text("name").notNull().unique(),
     description: text("description").notNull(),
     icon: text("icon").notNull(),
-    rarity: consumableRarityEnum("rarity").notNull(),
     category: consumableCategoryEnum("category").notNull(),
-    subcategory: consumableSubcategoryEnum("subcategory").notNull().default("None"),
-    buyPrice: integer("buy_price").notNull().default(0),
-    sellPrice: integer("sell_price").notNull().default(0),
-    autoSoldOnExfil: text("auto_sold_on_exfil").notNull().default("false"),
 })
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type Runner = typeof runners.$inferSelect
 export type NewRunner = typeof runners.$inferInsert
+
+export type Faction = typeof factions.$inferSelect
+export type NewFaction = typeof factions.$inferInsert
 
 export type Ability = typeof abilities.$inferSelect
 export type NewAbility = typeof abilities.$inferInsert

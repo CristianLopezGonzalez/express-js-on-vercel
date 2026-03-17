@@ -8,8 +8,6 @@
 } from "drizzle-orm/pg-core";
 import {relations} from "drizzle-orm";
 
-// ─── Enums ───────────────────────────────────────────────────────────────────
-
 export const roleNameEnum = pgEnum("role_name", [
     "Duelist",
     "Sentinel",
@@ -54,8 +52,6 @@ export const abilityTypeEnum = pgEnum("ability_type", [
     "Signature",
     "Ultimate",
 ]);
-
-// ─── Tables ──────────────────────────────────────────────────────────────────
 
 export const weapons = pgTable("weapons", {
     weaponId: serial("weapon_id").primaryKey(),
@@ -109,7 +105,6 @@ export const maps = pgTable("maps", {
     miniMap: text("mini_map").notNull(),
 });
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 export type Weapon = typeof weapons.$inferSelect;
 export type NewWeapon = typeof weapons.$inferInsert;
 
@@ -124,8 +119,6 @@ export type NewAbility = typeof abilities.$inferInsert;
 
 export type Map = typeof maps.$inferSelect;
 export type NewMap = typeof maps.$inferInsert;
-
-// ─── Relations ───────────────────────────────────────────────────────────────
 
 export const rolesRelations = relations(roles, ({many}) => ({
     agents: many(agents),

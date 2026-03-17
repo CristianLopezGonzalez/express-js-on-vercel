@@ -1,6 +1,6 @@
 ﻿import express from "express";
-import {requireApiKey} from "../Middleware/Auth.js";
-import AbilitiesController from "../Controller/valorant/AbilitiesController.js";
+import {requireApiKey} from "../../Middleware/Auth.js";
+import AbilitiesController from "../../Controller/valorant/AbilitiesController.js";
 
 const router = express.Router();
 

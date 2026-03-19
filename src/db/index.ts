@@ -11,5 +11,11 @@ const client = postgres(process.env.DATABASE_URL!, {
     ssl: "require",
 })
 
+const marathonClient = postgres(process.env.DATABASE_URL!, {
+    max: 1,
+    ssl: "require",
+    prepare: false,
+})
+
 export const valorantDb = drizzle(client, { schema: valorantSchema })
-export const marathonDb = drizzle(client, { schema: marathonSchema })
+export const marathonDb = drizzle(marathonClient, { schema: marathonSchema })

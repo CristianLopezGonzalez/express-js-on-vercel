@@ -18,7 +18,7 @@ class AbilityController {
 
             res.status(200).json({
                 success: true,
-                data:data
+                data: data
             })
         } catch (e) {
             const error = e as Error
@@ -42,14 +42,30 @@ class AbilityController {
                 }
             }
 
-            const newAbilities = await db.insert(abilities).values(body).returning()
+            // Map camelCase (JSON) -> snake_case (Drizzle column names)
+            const mapped = body.map((ability: {
+                abilityName: string
+                description: string
+                type: "Prime" | "Tactical" | "Passive"
+                icon: string
+                runnerId: number
+            }) => ({
+                abilityName: ability.abilityName,
+                description: ability.description,
+                type: ability.type,
+                icon: ability.icon,
+                runnerId: ability.runnerId,
+            }))
+
+            const newAbilities = await db.insert(abilities).values(mapped).returning()
             res.status(201).json({
                 success: true,
                 data: newAbilities
             })
         } catch (e) {
             const error = e as Error
-            res.status(500).json({ success: false,
+            res.status(500).json({
+                success: false,
                 message: `Internal Server Error ${error.message}`
             })
         }

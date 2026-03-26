@@ -49,13 +49,10 @@ El proyecto utiliza **Drizzle ORM** para definir la estructura de la base de dat
 
 ### Marathon
 - `GET /api/marathon/runners`: Obtiene todos los corredores.
-- `POST /api/marathon/runners`: Crea un nuevo corredor (Requiere API Key).
 - `GET /api/marathon/weapons`: Obtiene todas las armas.
 - `GET /api/marathon/factions`: Obtiene las facciones.
 - `GET /api/marathon/abilities`: Obtiene las habilidades.
 - `GET /api/marathon/maps`: Obtiene los mapas.
-- `GET /api/marathon/loot`: Obtiene los objetos de botín.
-- `GET /api/marathon/consumables`: Obtiene los consumibles.
 
 > [!NOTE]
 > Los métodos `POST` requieren una cabecera `x-api-key` para la autorización.
